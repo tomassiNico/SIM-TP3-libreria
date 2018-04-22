@@ -32,23 +32,24 @@ public class Normal {
     public ArrayList generarNumeros(int cantidad)
     {
         Random r = new Random();
-        ArrayList numeros = new ArrayList(); //lista donde se guardaran los numeros generados;
-        boolean positivo; //para saber si sumar o restar la desviación estándar a la media; true= se suma; false= se resta
-        float numGenerado; //numero que se genera
-        float de;
+        ArrayList numerosGenerados = new ArrayList(); //lista donde se guardaran los numeros generados;
+        double numGenerado; //numero que se genera
+        double rnd1;
+        double rnd2;
         for (int i = 0; i < cantidad; i++) {
-            de = r.nextFloat() * this.desviacionEstandar; //obtenemos la desviacion
-            
-            positivo = r.nextBoolean(); //obtenemos si será positiva o negativa
-            if (!positivo) {
-                de *= -1;
+            rnd1 = r.nextFloat();
+            rnd2 = r.nextFloat();
+            if (i%2 == 0) 
+            { 
+                numGenerado = ((Math.sqrt(-2 * Math.log(rnd1)) * Math.cos(2 * Math.PI * rnd2)) * this.desviacionEstandar + this.media);
+            } 
+            else
+            {
+                numGenerado = ((Math.sqrt(-2 * Math.log(rnd1)) * Math.sin(2 * Math.PI * rnd2)) * this.desviacionEstandar + this.media);
             }
-            
-            numGenerado = this.media + de; //generamos el número
-            
-            numeros.add(numGenerado);
+            numerosGenerados.add(numGenerado);
         }
-        return numeros;
+        return numerosGenerados;
     }
     
     public ArrayList generarNumeros(int cantidad, float media, float de)
