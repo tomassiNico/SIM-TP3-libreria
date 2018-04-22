@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author nicolastomassi
  */
-public class Uniforme {
+public class Uniforme implements Distribucion{
     
     private double valorInf; //valor inferior minimo a generar
     private double valorSup; //valor superior máximo a generar
@@ -27,6 +27,7 @@ public class Uniforme {
         this.valorSup = inf;
     }
     
+    @Override
     public ArrayList generarNumeros(int cantidad) {
         ArrayList numeros = new ArrayList(); //lista de numeros generados
         Random r = new Random();

@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author nicolastomassi
  */
-public class Normal {
+public class Normal implements Distribucion{
     
     private double media;
     private double desviacionEstandar;
@@ -28,7 +28,7 @@ public class Normal {
         this.desviacionEstandar = de;
     }
     
-    
+    @Override
     public ArrayList generarNumeros(int cantidad)
     {
         Random r = new Random();

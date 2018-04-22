@@ -13,7 +13,7 @@ import java.util.logging.Level;
  *
  * @author nicolastomassi
  */
-public class Exponencial {
+public class Exponencial implements Distribucion{
     
     private double media;
     private double lambda;
@@ -27,6 +27,7 @@ public class Exponencial {
         this.lambda = 1/this.media;
     }
     
+    @Override
     public ArrayList generarNumeros(int cantidad) {
         ArrayList numeros = new ArrayList();
         Random r = new Random();

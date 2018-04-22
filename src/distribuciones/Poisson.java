@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author nicolastomassi
  */
-public class Poisson {
+public class Poisson implements Distribucion{
     
     public double media;
     
@@ -24,6 +24,7 @@ public class Poisson {
         this.media = me;
     }
     
+    @Override
     public ArrayList generarNumeros(int cantidad) {
         ArrayList numeros = new ArrayList();
         Random r = new Random();
