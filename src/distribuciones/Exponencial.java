@@ -15,14 +15,14 @@ import java.util.logging.Level;
  */
 public class Exponencial {
     
-    private float media;
-    private float lambda;
+    private double media;
+    private double lambda;
     
     public Exponencial(){
         
     }
     
-    public Exponencial(float media) {
+    public Exponencial(double media) {
         this.media = media;
         this.lambda = 1/this.media;
     }
@@ -40,7 +40,12 @@ public class Exponencial {
         return numeros;
     }
         
-    
+    public ArrayList generarNumeros(int cantidad, double media) {
+        this.media = media;
+        this.lambda = 1 / this.media;
+        
+        return this.generarNumeros(cantidad);
+    }
     
     
     

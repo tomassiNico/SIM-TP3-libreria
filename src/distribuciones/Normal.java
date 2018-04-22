@@ -14,15 +14,15 @@ import java.util.Random;
  */
 public class Normal {
     
-    private float media;
-    private float desviacionEstandar;
+    private double media;
+    private double desviacionEstandar;
     
     public Normal()
     {
         
     }
     
-    public Normal(float media, float de)
+    public Normal(double media, double de)
     {
         this.media = media;
         this.desviacionEstandar = de;
@@ -52,7 +52,7 @@ public class Normal {
         return numerosGenerados;
     }
     
-    public ArrayList generarNumeros(int cantidad, float media, float de)
+    public ArrayList generarNumeros(int cantidad, double media, double de)
     {
         //sobrecarga de generarNumero por si se quiere con otra media y desviación o nunca se setearon estos valores
         this.desviacionEstandar = de;

@@ -14,15 +14,15 @@ import java.util.Random;
  */
 public class Uniforme {
     
-    private float valorInf; //valor inferior minimo a generar
-    private float valorSup; //valor superior máximo a generar
+    private double valorInf; //valor inferior minimo a generar
+    private double valorSup; //valor superior máximo a generar
     
     public Uniforme()
     {
         
     }
     
-    public Uniforme(float inf, float sup) {
+    public Uniforme(double inf, double sup) {
         this.valorInf = inf;
         this.valorSup = inf;
     }
@@ -30,8 +30,8 @@ public class Uniforme {
     public ArrayList generarNumeros(int cantidad) {
         ArrayList numeros = new ArrayList(); //lista de numeros generados
         Random r = new Random();
-        float numeroGenerado;  // numero generado
-        float amplitud = this.valorSup - this.valorInf; //amplitud o recorrido = valor entre los que toma el random
+        double numeroGenerado;  // numero generado
+        double amplitud = this.valorSup - this.valorInf; //amplitud o recorrido = valor entre los que toma el random
         
         for (int i = 0; i < cantidad; i++) {
             numeroGenerado = this.valorInf + (r.nextFloat()*amplitud);
@@ -41,7 +41,7 @@ public class Uniforme {
         return numeros;
     }
     
-    public ArrayList generarNumeros(int cantidad, float inf, float sup){
+    public ArrayList generarNumeros(int cantidad, double inf, double sup){
         //para generar numero entre dos valores, en caso de nunca inicializados los valores o querer cambiar los actuales
         
         this.valorInf = inf;
