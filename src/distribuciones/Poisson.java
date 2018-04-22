@@ -5,10 +5,51 @@
  */
 package distribuciones;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  *
  * @author nicolastomassi
  */
 public class Poisson {
     
+    public double media;
+    
+    public Poisson() {
+        
+    }
+    
+    public Poisson(double me) {
+        this.media = me;
+    }
+    
+    public ArrayList generarNumeros(int cantidad) {
+        ArrayList numeros = new ArrayList();
+        Random r = new Random();
+        int numeroGenerado;
+        
+        
+        for (int i = 0; i < cantidad; i++) {
+            int p = 1;
+            int x = -1;
+            double a = Math.pow(Math.E, -media);
+            
+            while(p >= a) {
+                p *= r.nextFloat();
+                x += 1;               
+            }
+            
+            numeros.add(x);
+        }
+        
+        return numeros;
+    }
+    
+    public ArrayList generarNumeros(int cantidad, float media) {
+        this.media = media;
+        
+        return this.generarNumeros(cantidad);
+    }
 }
+

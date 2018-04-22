@@ -27,14 +27,18 @@ public class Exponencial {
         this.lambda = 1/this.media;
     }
     
-//    public ArrayList generarNumeros(int cantidad) {
-//        ArrayList numeros = new ArrayList();
-//        Random r = new Random();
-//        double numeroGenerado;
-//        
-//        for (int i = 0; i < cantidad; i++) {
-//            numeroGenerado = (-1/this.lambda) * Math.log((1-r.nextFloat()));
-//        }
+    public ArrayList generarNumeros(int cantidad) {
+        ArrayList numeros = new ArrayList();
+        Random r = new Random();
+        double numeroGenerado;
+        
+        for (int i = 0; i < cantidad; i++) {
+            numeroGenerado = (-1/this.lambda) * Math.log((1-r.nextFloat()));
+            numeros.add(numeroGenerado);
+        }
+        
+        return numeros;
+    }
         
     
     
