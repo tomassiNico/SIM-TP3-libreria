@@ -26,6 +26,7 @@ public abstract class TestChiCuadrado {
     {
         this.numIntervalos = intervalos;
         this.numerosAleatorios = numeros;
+        this.intervalos = new int[numIntervalos];
     }
 
     public ArrayList<Double> getNumerosAleatorios() {
@@ -45,12 +46,6 @@ public abstract class TestChiCuadrado {
     public int getGradosDeLibertad()
     {
         return this.gradosDeLibertad;
-    }
-    
-    
-    private void intervalos()
-    {
-        intervalos = new int[numIntervalos];
     }
     
     //Metodo que devuelve el valor de la tabla, si no encuentra devuelve 0WS
@@ -172,7 +167,6 @@ public abstract class TestChiCuadrado {
     {
         return intervalos;
     }
-
     
     public abstract ArrayList<Double> diferenciaYalCuadrado();
     
@@ -189,4 +183,6 @@ public abstract class TestChiCuadrado {
         }
         return aux;
     }
+    
+    public abstract boolean ejecutarTest();
 }
