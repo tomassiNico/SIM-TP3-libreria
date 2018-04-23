@@ -14,11 +14,12 @@ import java.util.ArrayList;
  *
  * @author aleex
  */
-public class TestChiCuadradoUniforme extends TestChiCuadrado{
+public class ChiUniforme extends TestChiCuadrado{
     private double esperado;
     
-    public TestChiCuadradoUniforme(int i, ArrayList numeros, int valoresEmpiricos) {
-        super(i, numeros, valoresEmpiricos);
+    public ChiUniforme(int intervalos, ArrayList numeros) {
+        super(intervalos, numeros);
+        super.setGradosDeLibertad(intervalos - 1);
     }
     public void calcularEsperado()
     {
@@ -30,8 +31,7 @@ public class TestChiCuadradoUniforme extends TestChiCuadrado{
                 numIntervalos -= 1;
                 this.esperado = (float) super.getNumerosAleatorios().size() / (float) super.getNumIntervalos();
             }
-        
-            this.esperado = Math.round(this.esperado*10000.0) / 10000.0;
+        this.esperado = Math.round(this.esperado*10000.0) / 10000.0;
         super.setNumIntervalos(numIntervalos);
     }
 
