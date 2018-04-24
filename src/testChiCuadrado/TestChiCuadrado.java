@@ -21,7 +21,9 @@ public abstract class TestChiCuadrado {
     private ArrayList<Double> numerosAleatorios;//Numeros aleatorios a testear
     private int gradosDeLibertad;
     private int[] contadorFrecuencia;//Contador de frecuencias observadas en cada intervalo
-    ArrayList intervalosGenerados;
+    private ArrayList intervalosGenerados; 
+    private double min; //valor minimo de los numeros aleatorios
+    private double max; //valor maximo de los numeros aleatorios
     
     public TestChiCuadrado(int intervalos, ArrayList numeros)
     {
@@ -30,16 +32,40 @@ public abstract class TestChiCuadrado {
         this.contadorFrecuencia = new int[numIntervalos];
         this.generarIntervalosNoAgrupados();
         this.intervalosGenerados = new ArrayList();
+        this.calcularMinMax();
+    }
+    
+    public ArrayList getIntervalosGenerados() {
+        return this.intervalosGenerados;
     }
 
+    public double getMin() {
+        return min;
+    }
+
+    public double getMax() {
+        return max;
+    }
+    
     public ArrayList<Double> getNumerosAleatorios() {
         return numerosAleatorios;
     }
-
-    public ArrayList getIntervalosGenerados() {
-        return intervalosGenerados;
-    }
     
+    private void calcularMinMax() {
+        this.min = 0;
+        this.max = 0;
+        
+        for(double aux: this.getNumerosAleatorios()) { 
+            //obtenemos el menor y mayor número dentro de los generados
+            //para poder saber el rango
+            if (aux < this.min) {
+                this.min = (int) aux;
+            }
+            if(aux > this.max) {
+                this.max = ((int) aux) + 1;
+            }
+        }  
+    }
     
     public boolean esAprobado()
     {
@@ -105,22 +131,19 @@ public abstract class TestChiCuadrado {
      
     private void contarFrecuencia()
     {
-        //double rango = 
-        double amplitudIntervalo = 1 / (float) numIntervalos;
         amplitudIntervalo = Math.round(amplitudIntervalo*10000.0) / 10000.0;
         for (double aux : numerosAleatorios)
         {
             int count = 0;
-            for (double i = 0; i< 1 ; i += amplitudIntervalo)
+            for (double[] i: this.intervalosGenerados)
             {
-                if(aux >= 1) 
+                if(aux >= this.max) 
                     {
                         break;
-                    
                     }
-                if (i <= aux && aux < i + amplitudIntervalo)
+                
+                if (i[0] <= aux && aux < i[1])
                 {
-                    
                     contadorFrecuencia[count] += 1;
                     break;
                 }
@@ -132,16 +155,17 @@ public abstract class TestChiCuadrado {
     
     private void generarIntervalosNoAgrupados()
     {
-        double amplitudIntervalo = 1 / (float) this.getNumIntervalos();
+        double rango = this.max - this.min;
+        double amplitudIntervalo = rango / (float) this.getNumIntervalos();
         amplitudIntervalo = Math.round(amplitudIntervalo*10000.0) / 10000.0;
-        double aux = 0;
+        double aux = this.min;
         ArrayList intervalosGenerados = new ArrayList();
-        while (aux > 1)
+        while (aux > this.max)
         {
             double intervalo[] = new double[2];
             intervalo[0] = aux;
             intervalo[1] = aux + amplitudIntervalo;
-            if (intervalo[1] > 1) {intervalo[1] = 1;}
+            if (intervalo[1] > this.max) {intervalo[1] = this.max;}
             intervalosGenerados.add(intervalo);
             aux += amplitudIntervalo;
         }
@@ -151,27 +175,6 @@ public abstract class TestChiCuadrado {
 
     public int[] getContadorFrecuencia() {
         return contadorFrecuencia;
-    }
-    
-    //
-    public ArrayList listaIntervalos()
-    {
-        ArrayList<String> listaIntervalos = new ArrayList<>();
-        double amplitudIntervalo = 1 / (float) numIntervalos;
-        amplitudIntervalo = Math.round(amplitudIntervalo*10000.0) / 10000.0;
-        String aux;
-        for (float i = 0; i < 1; i+=amplitudIntervalo)
-        {
-                double intM = Math.round((i+amplitudIntervalo) * 10000.0) / 10000.0;
-                double intm = Math.round(i * 10000.0) / 10000.0;
-                aux = String.valueOf(intm)  + " - " + String.valueOf(intM);
-                if (i+amplitudIntervalo > 1) 
-                {
-                    aux = String.valueOf(intm)  + " - 1";
-                }
-                listaIntervalos.add(aux);
-        }
-        return listaIntervalos;
     }
 
     public void setNumIntervalos(int numIntervalos) {
