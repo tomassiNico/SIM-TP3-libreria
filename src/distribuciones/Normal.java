@@ -49,6 +49,7 @@ public class Normal implements Distribucion{
             {
                 numGenerado = ((Math.sqrt(-2 * Math.log(rnd1)) * Math.sin(2 * Math.PI * rnd2)) * this.desviacionEstandar + this.media);
             }
+            numGenerado = Math.round(numGenerado*10000.0) / 10000.0;
             numerosGenerados.add(numGenerado);
         }
         

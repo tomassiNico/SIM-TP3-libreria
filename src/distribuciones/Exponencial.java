@@ -37,6 +37,7 @@ public class Exponencial implements Distribucion{
         
         for (int i = 0; i < cantidad; i++) {
             numeroGenerado = (-1/this.lambda) * Math.log((1-r.nextFloat()));
+            numeroGenerado = Math.round(numeroGenerado*10000.0) / 10000.0;
             numeros.add(numeroGenerado);
         }
         

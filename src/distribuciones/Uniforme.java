@@ -38,6 +38,7 @@ public class Uniforme implements Distribucion{
         
         for (int i = 0; i < cantidad; i++) {
             numeroGenerado = this.valorInf + (r.nextFloat()*amplitud);
+            numeroGenerado = Math.round(numeroGenerado*10000.0) / 10000.0;
             numeros.add(numeroGenerado);
         }
         
