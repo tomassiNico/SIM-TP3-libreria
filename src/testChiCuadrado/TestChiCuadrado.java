@@ -30,9 +30,10 @@ public abstract class TestChiCuadrado {
         this.numIntervalos = intervalos;
         this.numerosAleatorios = numeros;
         this.contadorFrecuencia = new int[numIntervalos];
+        this.calcularMinMax();
         this.generarIntervalosNoAgrupados();
         this.intervalosGenerados = new ArrayList();
-        this.calcularMinMax();
+        this.contarFrecuencia();
     }
     
     public ArrayList getIntervalosGenerados() {
