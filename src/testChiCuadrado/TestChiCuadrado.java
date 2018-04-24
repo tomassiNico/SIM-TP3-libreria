@@ -20,13 +20,14 @@ public abstract class TestChiCuadrado {
     private int numIntervalos;
     private ArrayList<Double> numerosAleatorios;//Numeros aleatorios a testear
     private int gradosDeLibertad;
-    private int intervalos[];
+    private int[] contadorFrecuencia;//Contador de frecuencias observadas en cada intervalo
+    ArrayList intervalosGenerados;
     
     public TestChiCuadrado(int intervalos, ArrayList numeros)
     {
         this.numIntervalos = intervalos;
         this.numerosAleatorios = numeros;
-        this.intervalos = new int[numIntervalos];
+        this.contadorFrecuencia = new int[numIntervalos];
     }
 
     public ArrayList<Double> getNumerosAleatorios() {
@@ -97,7 +98,6 @@ public abstract class TestChiCuadrado {
      
     private void contarFrecuencia()
     {
-
         double amplitudIntervalo = 1 / (float) numIntervalos;
         amplitudIntervalo = Math.round(amplitudIntervalo*10000.0) / 10000.0;
         for (double aux : numerosAleatorios)
@@ -113,13 +113,30 @@ public abstract class TestChiCuadrado {
                 if (i <= aux && aux < i + amplitudIntervalo)
                 {
                     
-                    intervalos[count] += 1;
+                    contadorFrecuencia[count] += 1;
                     break;
                 }
                 else { count += 1;  }
             }
         }
 
+    }
+    
+    private void generarIntervalosNoAgrupados()
+    {
+        double amplitudIntervalo = 1 / (float) this.getNumIntervalos();
+        amplitudIntervalo = Math.round(amplitudIntervalo*10000.0) / 10000.0;
+        double aux = 0;
+        ArrayList intervalosGenerados = new ArrayList();
+        while (aux > 1)
+        {
+            double intervalo[] = new double[2];
+            intervalo[0] = aux;
+            intervalo[1] = aux + amplitudIntervalo;
+            if (intervalo[1] > 1) {intervalo[1] = 1;}
+            intervalosGenerados.add(intervalo);
+            aux += amplitudIntervalo;
+        }
     }
     
     //
@@ -156,7 +173,7 @@ public abstract class TestChiCuadrado {
     }
 
     public void setIntervalos(int[] intervalos) {
-        this.intervalos = intervalos;
+        this.contadorFrecuencia = intervalos;
     }
 
     public int getNumIntervalos() {
@@ -165,7 +182,7 @@ public abstract class TestChiCuadrado {
 
     public int[] getIntervalos() 
     {
-        return intervalos;
+        return contadorFrecuencia;
     }
     
     public abstract ArrayList<Double> diferenciaYalCuadrado();
