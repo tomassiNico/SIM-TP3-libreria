@@ -134,14 +134,15 @@ public abstract class TestChiCuadrado {
         for (double aux : numerosAleatorios)
         {
             int count = 0;
-            for (double[] i: this.intervalosGenerados)
+            for (Object i:  this.intervalosGenerados)
             {
+                double intervalo[] = (double[]) i;
                 if(aux >= this.max) 
                     {
                         break;
                     }
                 
-                if (i[0] <= aux && aux < i[1])
+                if (intervalo[0] <= aux && aux < intervalo[1])
                 {
                     contadorFrecuencia[count] += 1;
                     break;

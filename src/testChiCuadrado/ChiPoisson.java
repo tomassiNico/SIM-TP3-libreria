@@ -45,17 +45,11 @@ public class ChiPoisson extends TestChiCuadrado {
         // para calcular las frecuencias esperadas
         
         ArrayList probabilidades = new ArrayList();
-        
-        
-        
-        
-        
-        
-        
-        double amplitudIntervalo = (max - min) / (double) super.getNumIntervalos(); //obtenemos la amplitud del intervalo
+                
+        double amplitudIntervalo = (this.getMax() - this.getMin()) / (double) super.getNumIntervalos(); //obtenemos la amplitud del intervalo
         double acumulada;
         
-        for (double i = min; i <= max; i+=amplitudIntervalo)
+        for (double i = this.getMin(); i <= this.getMax(); i+=amplitudIntervalo)
         {
                 double intM = Math.round((i+amplitudIntervalo) * 10000.0) / 10000.0;
                 double intm = Math.round(i * 10000.0) / 10000.0;
