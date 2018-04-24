@@ -15,12 +15,20 @@ public class ChiExponencial extends TestChiCuadrado{
 
     private double media;
     private double lambda;
+    private ArrayList<Double> esperadasInagrupadas ;
+    private ArrayList<Double> esperadasAgrupadas;
+    private ArrayList<Integer> observadasAgrupadas;
+    private ArrayList<double[]> intervalosAgrupados;
     
    
     public ChiExponencial(int intervalos, ArrayList numeros, double media) {
         super(intervalos, numeros);
         this.media = media;
         this.lambda = 1 / media;
+        this.esperadasInagrupadas = this.frecuenciaEsperada();
+        this.esperadasAgrupadas = new ArrayList<>();
+        this.observadasAgrupadas = new ArrayList<>();
+        this.intervalosAgrupados = new ArrayList<>();
     }
     
     private ArrayList<Double> probabilidadesAcumuladas() {
@@ -63,62 +71,106 @@ public class ChiExponencial extends TestChiCuadrado{
         return esperadas;
     }
     
-    private ArrayList esperadasAgrupadas() {
+    private void esperadasAgrupadas() {
         // calcula las frecuencias esperadas en caso de que 
         //deban ser agrupadas (si las fe < 5)
+        //
         
-        ArrayList<Double> esperadasInagrupadas = this.frecuenciaEsperada();
-        ArrayList<Double> esperadasAgrupadas = new ArrayList<>();
+        ArrayList intervalosNuevos = new ArrayList();
+        ArrayList<Integer> viejasObservadas = new ArrayList<>();
+        
+        for (int i = 0; i < this.getContadorFrecuencia().length; i++) {
+            viejasObservadas.add(this.getContadorFrecuencia()[i]);
+        }
+        
         
         int index = 0; //indice desde el cual se debería agrupar
+        int acuObservadas = 0; // acumulador de frecuencias acumuladas
         
-        for(double aux: esperadasInagrupadas) {
+        for(double aux: this.esperadasInagrupadas) {
             //encontramos el indice desde la cual ya las esperadas son menores a 5
             if (aux < 5) {
                 break;
             }
-            esperadasAgrupadas.add(aux);
+            this.esperadasAgrupadas.add(aux);
+            intervalosNuevos.add(this.intervalosGenerados.get(index)); //intervalos sin cambios
+            acuObservadas = viejasObservadas.get(index);
+            this.observadasAgrupadas.add(acuObservadas); //observada sin cambios
             index += 1;
         }
         
         double nuevaEsperada = 0;
+        double limites[];
+        limites = (double[]) this.intervalosGenerados.get(index);
         
+        double nuevosLimites[] = new double[2];
+        acuObservadas = 0;
         
-        for (;  index < esperadasInagrupadas.size(); index++) {
+        nuevosLimites[0] = limites[0];
+        
+        for (;  index < this.esperadasInagrupadas.size() ; index++) {
+            
+            limites = (double[]) this.intervalosGenerados.get(index);
+            
             if (nuevaEsperada < 5) {
                 nuevaEsperada += esperadasInagrupadas.get(index);
+                nuevosLimites[1] = limites[1];
+                acuObservadas += viejasObservadas.get(index);
             }
             else {
-                esperadasAgrupadas.add(nuevaEsperada);
+                this.esperadasAgrupadas.add(nuevaEsperada); //nueva esperada
+                intervalosNuevos.add(nuevosLimites); //intervalo de la nueva esperada
+                this.observadasAgrupadas.add(acuObservadas); //observada de los nuevos intervalos
+                acuObservadas = 0;
+                nuevosLimites[0] = limites[0];
                 nuevaEsperada = 0;
+                
+                if (index == this.esperadasInagrupadas.size()-1) {
+                    //última vuelta y queda el último valor solo
+                    nuevaEsperada = this.esperadasInagrupadas.get(index);
+                    acuObservadas = viejasObservadas.get(index);
+                }
             }
         }
         
-        if(nuevaEsperada < 5) {
+        if(nuevaEsperada < 5 && nuevaEsperada != 0) {
              // en caso de que queden valores al final de la lista de esperadas
              //que no sumen 5, se suman al ultimo valor que sí los sunma
-            int aux = esperadasAgrupadas.size() - 1; //indice del ultima esperada >= 5
-            nuevaEsperada += esperadasAgrupadas.get(aux); // se las suma
-            
-            esperadasAgrupadas.add(aux, nuevaEsperada); // pisa el valor anterior
+            int aux = this.esperadasAgrupadas.size() - 1; //indice del ultima esperada >= 5
+            nuevaEsperada += this.esperadasAgrupadas.get(aux); // se las suma
+            acuObservadas += this.observadasAgrupadas.get(aux);
+            intervalosNuevos.add(nuevosLimites);
+            this.esperadasAgrupadas.add(aux, nuevaEsperada); // pisa el valor anterior
+            this.observadasAgrupadas.add(aux, acuObservadas);
         }
         
-        return esperadasAgrupadas;
+        this.intervalosAgrupados = intervalosNuevos;
     }
     
     @Override
     public ArrayList<Double> diferenciaYalCuadrado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Double> generarSumatoriaChi() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList fes = this.esperadasAgrupadas; //lista de frecuencias esperadas
+        ArrayList fos = this.observadasAgrupadas; //lista de frecuencias observadas
+        ArrayList<Double> diferencias = new ArrayList<>();
+        
+        double dif;
+        for (int i = 0; i < fes.size(); i++) {
+            double fe = (double) fes.get(i), fo = (double) fos.get(i);
+            
+            dif = Math.pow((fo-fe), 2) / fe;
+            diferencias.add(dif);
+        }
+        return diferencias;
     }
 
     @Override
     public boolean ejecutarTest() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        this.esperadasAgrupadas();
+        double chiCalculado = this.generarSumatoriaChi();
+        
+        return this.esAprobado();
+        
     }
     
 }

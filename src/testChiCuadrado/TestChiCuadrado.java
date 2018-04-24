@@ -44,7 +44,7 @@ public abstract class TestChiCuadrado {
     public boolean esAprobado()
     {
         double ChiTabulado = this.getNumeroTabla(this.gradosDeLibertad);
-        if (ChiTabulado >= this.generarChiCuadradoCalculado())
+        if (ChiTabulado >= this.generarSumatoriaChi())
         {
             return true;
         }
@@ -200,19 +200,16 @@ public abstract class TestChiCuadrado {
     
     public abstract ArrayList<Double> diferenciaYalCuadrado();
     
-    public abstract ArrayList<Double> generarSumatoriaChi();
-    
-//Suma todos los valores obtenidos en generarSumatoriaChi    
-    public double generarChiCuadradoCalculado()
-    {
-        ArrayList<Double> lista = this.generarSumatoriaChi();
-        double aux = 0;
-        for (double i : lista)
-        {
-            aux += i;
+    public double generarSumatoriaChi() {
+        ArrayList<Double> diferencias = this.diferenciaYalCuadrado();
+        double sumatoria = 0;
+        for(double aux: diferencias) {
+            sumatoria += aux;
         }
-        return aux;
+        return sumatoria;
     }
+    
+
     
     public abstract boolean ejecutarTest();
 }
