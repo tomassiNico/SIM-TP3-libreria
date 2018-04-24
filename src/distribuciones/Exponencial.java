@@ -26,6 +26,14 @@ public class Exponencial implements Distribucion{
         this.media = media;
         this.lambda = 1/this.media;
     }
+
+    public double getMedia() {
+        return media;
+    }
+
+    public double getLambda() {
+        return lambda;
+    }
     
     @Override
     public ArrayList generarNumeros(int cantidad) {

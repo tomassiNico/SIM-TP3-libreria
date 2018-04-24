@@ -42,6 +42,26 @@ public class ChiPoisson extends TestChiCuadrado {
         }
         return esperadas;
     }
+
+    public double getMedia() {
+        return media;
+    }
+
+    public ArrayList<Double> getObservadasAgrupadas() {
+        return observadasAgrupadas;
+    }
+
+    public ArrayList<Double> getEsperadasAgrupadas() {
+        return esperadasAgrupadas;
+    }
+
+    public ArrayList<Double> getProbabilidades() {
+        return probabilidades;
+    }
+
+    public ArrayList getIntervalosAgrupados() {
+        return intervalosAgrupados;
+    }
     
     private ArrayList<Double> probabilidadesAcumuladas() {
         //calcula la probabilidad acumulada para cada intervalo que servira

@@ -21,6 +21,14 @@ public class Normal implements Distribucion{
     {
         
     }
+
+    public double getMedia() {
+        return media;
+    }
+
+    public double getDesviacionEstandar() {
+        return desviacionEstandar;
+    }
     
     public Normal(double media, double de)
     {

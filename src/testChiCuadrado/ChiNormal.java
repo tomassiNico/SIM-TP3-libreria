@@ -31,6 +31,34 @@ public class ChiNormal extends TestChiCuadrado{
         this.frecuenciaAgrupada = new ArrayList();
         this.intervalosAgrupados = new ArrayList();
     }
+
+    public int getCantidadNumeros() {
+        return cantidadNumeros;
+    }
+
+    public double getMedia() {
+        return media;
+    }
+
+    public double getDesviacion() {
+        return desviacion;
+    }
+
+    public ArrayList<Double> getEsperadas() {
+        return esperadas;
+    }
+
+    public ArrayList<Double> getEsperadasAgrupadas() {
+        return esperadasAgrupadas;
+    }
+
+    public ArrayList getIntervalosAgrupados() {
+        return intervalosAgrupados;
+    }
+
+    public ArrayList getFrecuenciaAgrupada() {
+        return frecuenciaAgrupada;
+    }
     
     //Metodo que genera los intervalos agrupados. frecuencia observada agrupada y las esperadas agrupadas
     public void generarIntervalosAgrupados()

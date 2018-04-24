@@ -26,6 +26,14 @@ public class Uniforme implements Distribucion{
         this.valorInf = inf;
         this.valorSup = inf;
     }
+
+    public double getValorInf() {
+        return valorInf;
+    }
+
+    public double getValorSup() {
+        return valorSup;
+    }
     
     @Override
     public ArrayList generarNumeros(int cantidad) {

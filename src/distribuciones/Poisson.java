@@ -23,6 +23,10 @@ public class Poisson implements Distribucion{
     public Poisson(double me) {
         this.media = me;
     }
+
+    public double getMedia() {
+        return media;
+    }
     
     @Override
     public ArrayList generarNumeros(int cantidad) {

@@ -22,6 +22,10 @@ public class ChiUniforme extends TestChiCuadrado{
         super(intervalos, numeros);
         super.setGradosDeLibertad(intervalos - 1);
     }
+
+    public double getEsperado() {
+        return esperado;
+    }
     
     
     public void calcularEsperado()

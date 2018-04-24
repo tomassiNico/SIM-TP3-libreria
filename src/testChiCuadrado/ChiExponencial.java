@@ -19,6 +19,30 @@ public class ChiExponencial extends TestChiCuadrado{
     private ArrayList<Double> esperadasAgrupadas;
     private ArrayList<Integer> observadasAgrupadas;
     private ArrayList<double[]> intervalosAgrupados;
+
+    public double getMedia() {
+        return media;
+    }
+
+    public double getLambda() {
+        return lambda;
+    }
+
+    public ArrayList<Double> getEsperadasInagrupadas() {
+        return esperadasInagrupadas;
+    }
+
+    public ArrayList<Double> getEsperadasAgrupadas() {
+        return esperadasAgrupadas;
+    }
+
+    public ArrayList<Integer> getObservadasAgrupadas() {
+        return observadasAgrupadas;
+    }
+
+    public ArrayList<double[]> getIntervalosAgrupados() {
+        return intervalosAgrupados;
+    }
     
    
     public ChiExponencial(int intervalos, ArrayList numeros, double media) {
