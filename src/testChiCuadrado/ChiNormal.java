@@ -37,7 +37,7 @@ public class ChiNormal extends TestChiCuadrado{
     {
         double acuEsperada = 0;
         double acuFrecuencia = 0;
-        double limInf = 0;//Desde - Nuevo intervalo
+        double limInf = this.getMin();//Desde - Nuevo intervalo
         ArrayList intViejos = this.getIntervalosGenerados();
         int []frecuenciaVieja = this.getContadorFrecuencia();
         for (int i = 0; i < this.esperadas.size(); i++)
@@ -66,10 +66,11 @@ public class ChiNormal extends TestChiCuadrado{
         this.esperadas = new ArrayList();
         //ArrayList que tiene los intervalos sin agrupar
         ArrayList intervalos = this.getIntervalosGenerados();
-        for (int i = 0; i < this.getNumIntervalos() ; i++)
+        for (Object i: intervalos)
+        //for (int i = 0; i < this.getNumIntervalos() ; i++)
         {
             //Variable para guardar el intervalo necesario
-            double aux[] =  (double[]) intervalos.get(i);
+            double aux[] =  (double[]) i;
             //Calculo la marca de clase
             double marcaClase = (aux[0] + aux[1]) / 2;
             //Formula de p() de LA distribucion normal

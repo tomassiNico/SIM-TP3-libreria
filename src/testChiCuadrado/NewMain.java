@@ -5,6 +5,9 @@
  */
 package testChiCuadrado;
 
+import distribuciones.Normal;
+import java.util.ArrayList;
+
 /**
  *
  * @author aleex
@@ -16,10 +19,16 @@ public class NewMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        double a1 = 0.4;
-        double a2 = 1.9;
-        System.out.println(((int)a1) + 1);
-        System.out.println(((int)a2) + 1);
+        Normal n = new Normal(12,2);
+        ArrayList<Double> prueba = new ArrayList<>();
+        prueba.add(5.0);
+        prueba.add(5.0);
+        prueba.add(5.0);
+        prueba.add(5.0);
+        prueba.add(5.0);
+        prueba.add(5.0);
+        ChiNormal cn = new ChiNormal(10,prueba, 12, 2);
+        System.out.println(cn.ejecutarTest());
     }
     
 }
