@@ -167,8 +167,6 @@ public class ChiExponencial extends TestChiCuadrado{
     public boolean ejecutarTest() {
         
         this.esperadasAgrupadas();
-        double chiCalculado = this.generarSumatoriaChi();
-        
         return this.esAprobado();
         
     }
