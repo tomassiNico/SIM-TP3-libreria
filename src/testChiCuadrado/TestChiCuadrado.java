@@ -137,6 +137,7 @@ public abstract class TestChiCuadrado {
             intervalosGenerados.add(intervalo);
             aux += amplitudIntervalo;
         }
+        this.intervalosGenerados = intervalosGenerados;
     }
     
     //
