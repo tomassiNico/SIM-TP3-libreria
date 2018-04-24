@@ -21,7 +21,9 @@ public abstract class TestChiCuadrado {
     private ArrayList<Double> numerosAleatorios;//Numeros aleatorios a testear
     private int gradosDeLibertad;
     private int[] contadorFrecuencia;//Contador de frecuencias observadas en cada intervalo
-    ArrayList intervalosGenerados;
+    private ArrayList intervalosGenerados; 
+    private double min; //valor minimo de los numeros aleatorios
+    private double max; //valor maximo de los numeros aleatorios
     
     public TestChiCuadrado(int intervalos, ArrayList numeros)
     {
@@ -30,16 +32,40 @@ public abstract class TestChiCuadrado {
         this.contadorFrecuencia = new int[numIntervalos];
         this.generarIntervalosNoAgrupados();
         this.intervalosGenerados = new ArrayList();
+        this.calcularMinMax();
+    }
+    
+    public ArrayList getIntervalosGenerados() {
+        return this.intervalosGenerados;
     }
 
+    public double getMin() {
+        return min;
+    }
+
+    public double getMax() {
+        return max;
+    }
+    
     public ArrayList<Double> getNumerosAleatorios() {
         return numerosAleatorios;
     }
-
-    public ArrayList getIntervalosGenerados() {
-        return intervalosGenerados;
-    }
     
+    private void calcularMinMax() {
+        this.min = 0;
+        this.max = 0;
+        
+        for(double aux: this.getNumerosAleatorios()) { 
+            //obtenemos el menor y mayor número dentro de los generados
+            //para poder saber el rango
+            if (aux < this.min) {
+                this.min = (int) aux;
+            }
+            if(aux > this.max) {
+                this.max = ((int) aux) + 1;
+            }
+        }  
+    }
     
     public boolean esAprobado()
     {

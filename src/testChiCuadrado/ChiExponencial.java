@@ -93,7 +93,7 @@ public class ChiExponencial extends TestChiCuadrado{
                 break;
             }
             this.esperadasAgrupadas.add(aux);
-            intervalosNuevos.add(this.intervalosGenerados.get(index)); //intervalos sin cambios
+            intervalosNuevos.add(this.getIntervalosGenerados().get(index)); //intervalos sin cambios
             acuObservadas = viejasObservadas.get(index);
             this.observadasAgrupadas.add(acuObservadas); //observada sin cambios
             index += 1;
@@ -101,7 +101,7 @@ public class ChiExponencial extends TestChiCuadrado{
         
         double nuevaEsperada = 0;
         double limites[];
-        limites = (double[]) this.intervalosGenerados.get(index);
+        limites = (double[]) this.getIntervalosGenerados().get(index);
         
         double nuevosLimites[] = new double[2];
         acuObservadas = 0;
@@ -110,7 +110,7 @@ public class ChiExponencial extends TestChiCuadrado{
         
         for (;  index < this.esperadasInagrupadas.size() ; index++) {
             
-            limites = (double[]) this.intervalosGenerados.get(index);
+            limites = (double[]) this.getIntervalosGenerados().get(index);
             
             if (nuevaEsperada < 5) {
                 nuevaEsperada += esperadasInagrupadas.get(index);
