@@ -16,6 +16,7 @@ public class Normal implements Distribucion{
     
     private double media;
     private double desviacionEstandar;
+    private ArrayList numeros;
     
     public Normal()
     {
@@ -26,6 +27,7 @@ public class Normal implements Distribucion{
     {
         this.media = media;
         this.desviacionEstandar = de;
+        this.numeros = new ArrayList();
     }
     
     @Override
@@ -49,6 +51,8 @@ public class Normal implements Distribucion{
             }
             numerosGenerados.add(numGenerado);
         }
+        
+        this.numeros = numerosGenerados;
         return numerosGenerados;
     }
     
@@ -59,5 +63,10 @@ public class Normal implements Distribucion{
         this.media = media;
         
         return this.generarNumeros(cantidad);
+    }
+    
+    @Override
+    public ArrayList getNumeros() {
+        return this.numeros;
     }
 }

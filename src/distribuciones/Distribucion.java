@@ -14,4 +14,5 @@ import java.util.ArrayList;
 public interface Distribucion {
     
     public ArrayList generarNumeros(int cantidad);
+    public ArrayList getNumeros();
 }
