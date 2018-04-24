@@ -15,24 +15,29 @@ import java.util.ArrayList;
  * @author aleex
  */
 public class ChiUniforme extends TestChiCuadrado{
+    
     private double esperado;
     
     public ChiUniforme(int intervalos, ArrayList numeros) {
         super(intervalos, numeros);
         super.setGradosDeLibertad(intervalos - 1);
     }
+    
+    
     public void calcularEsperado()
     {
-        ArrayList NumerosAleatorios = super.getNumerosAleatorios();
-        int numIntervalos = super.getNumIntervalos();
+        ArrayList NumerosAleatorios = this.getNumerosAleatorios();
+        int numIntervalos = this.getNumIntervalos();
         this.esperado = (float) NumerosAleatorios.size() / (float) numIntervalos ;
         while(esperado < 5)
             {
                 numIntervalos -= 1;
-                this.esperado = (float) super.getNumerosAleatorios().size() / (float) super.getNumIntervalos();
+                this.esperado = (float) super.getNumerosAleatorios().size() / (float) this.getNumIntervalos();
             }
         this.esperado = Math.round(this.esperado*10000.0) / 10000.0;
         super.setNumIntervalos(numIntervalos);
+        int intervalos[] = new int[numIntervalos];
+        super.setIntervalos(intervalos);
     }
 
     @Override
@@ -47,13 +52,21 @@ public class ChiUniforme extends TestChiCuadrado{
         }
         return aux; 
     }
-    
+
     @Override
-    public ArrayList<Double> generarSumatoriaChi()
+    public boolean ejecutarTest() 
+    {
+        this.calcularEsperado();
+        return this.esAprobado();
+    }
+
+    @Override
+    public ArrayList<Double> generarSumatoriaChi() 
     {
         ArrayList<Double> restas = this.diferenciaYalCuadrado();
         ArrayList<Double> lista = new ArrayList<>();
         double aux;
+        
         for (double i : restas)
         {
             aux = i;
@@ -63,6 +76,8 @@ public class ChiUniforme extends TestChiCuadrado{
         
         return lista;
     }
+
+    
     
 }
     
