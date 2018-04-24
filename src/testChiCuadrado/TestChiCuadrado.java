@@ -131,7 +131,6 @@ public abstract class TestChiCuadrado {
      
     private void contarFrecuencia()
     {
-        amplitudIntervalo = Math.round(amplitudIntervalo*10000.0) / 10000.0;
         for (double aux : numerosAleatorios)
         {
             int count = 0;
