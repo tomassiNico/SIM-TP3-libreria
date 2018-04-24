@@ -145,6 +145,7 @@ public abstract class TestChiCuadrado {
             aux += amplitudIntervalo;
         }
         this.intervalosGenerados = intervalosGenerados;
+
     }
 
     public int[] getContadorFrecuencia() {
