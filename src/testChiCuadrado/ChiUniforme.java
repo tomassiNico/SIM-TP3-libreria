@@ -47,7 +47,8 @@ public class ChiUniforme extends TestChiCuadrado{
         int intervalos[] = super.getIntervalos();
         for ( int i = 0 ; i < intervalos.length ; i++)
         {
-            double aux1 = Math.pow(intervalos[i] - esperado, 2);
+            double aux1 = Math.pow(intervalos[i] - this.esperado, 2);
+            aux1 /= this.esperado;
             aux.add(aux1);
         }
         return aux; 
@@ -58,23 +59,6 @@ public class ChiUniforme extends TestChiCuadrado{
     {
         this.calcularEsperado();
         return this.esAprobado();
-    }
-
-    @Override
-    public ArrayList<Double> generarSumatoriaChi() 
-    {
-        ArrayList<Double> restas = this.diferenciaYalCuadrado();
-        ArrayList<Double> lista = new ArrayList<>();
-        double aux;
-        
-        for (double i : restas)
-        {
-            aux = i;
-            aux = aux/this.esperado;
-            lista.add(aux);
-        }
-        
-        return lista;
     }
 
     

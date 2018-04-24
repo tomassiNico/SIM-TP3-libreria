@@ -63,9 +63,11 @@ public class ChiNormal extends TestChiCuadrado{
     public void calcularEsperadas()
     {
         this.esperadas = new ArrayList();
+        //ArrayList que tiene los intervalos sin agrupar
         ArrayList intervalos = this.getIntervalosGenerados();
         for (int i = 0; i < this.getNumIntervalos() ; i++)
         {
+            //Variable 
             double aux[] =  (double[]) intervalos.get(i);
             double marcaClase = (aux[0] + aux[1]) / 2;
             double aux3 = Math.pow(2,(marcaClase - this.media)/this.desviacion);
