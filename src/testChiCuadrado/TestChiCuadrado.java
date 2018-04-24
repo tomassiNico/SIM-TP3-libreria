@@ -28,11 +28,18 @@ public abstract class TestChiCuadrado {
         this.numIntervalos = intervalos;
         this.numerosAleatorios = numeros;
         this.contadorFrecuencia = new int[numIntervalos];
+        this.generarIntervalosNoAgrupados();
+        this.intervalosGenerados = new ArrayList();
     }
 
     public ArrayList<Double> getNumerosAleatorios() {
         return numerosAleatorios;
     }
+
+    public ArrayList getIntervalosGenerados() {
+        return intervalosGenerados;
+    }
+    
     
     public boolean esAprobado()
     {
@@ -137,6 +144,11 @@ public abstract class TestChiCuadrado {
             intervalosGenerados.add(intervalo);
             aux += amplitudIntervalo;
         }
+        this.intervalosGenerados = intervalosGenerados;
+    }
+
+    public int[] getContadorFrecuencia() {
+        return contadorFrecuencia;
     }
     
     //
