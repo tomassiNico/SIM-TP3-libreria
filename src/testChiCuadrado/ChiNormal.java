@@ -7,7 +7,7 @@ package testChiCuadrado;
 
 import java.util.ArrayList;
 
-/**
+/**s
  *
  * @author aleex
  */
