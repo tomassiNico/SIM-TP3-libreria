@@ -32,6 +32,7 @@ public class ChiNormal extends TestChiCuadrado{
         this.intervalosAgrupados = new ArrayList();
     }
     
+    //Metodo que genera los intervalos agrupados. frecuencia observada agrupada y las esperadas agrupadas
     public void generarIntervalosAgrupados()
     {
         double acuEsperada = 0;
@@ -59,7 +60,7 @@ public class ChiNormal extends TestChiCuadrado{
         }
     }
 
-    
+    //Metodo que crea la frecuencia Esperada en el atributo esperada de la clase
     public void calcularEsperadas()
     {
         this.esperadas = new ArrayList();
@@ -67,12 +68,15 @@ public class ChiNormal extends TestChiCuadrado{
         ArrayList intervalos = this.getIntervalosGenerados();
         for (int i = 0; i < this.getNumIntervalos() ; i++)
         {
-            //Variable 
+            //Variable para guardar el intervalo necesario
             double aux[] =  (double[]) intervalos.get(i);
+            //Calculo la marca de clase
             double marcaClase = (aux[0] + aux[1]) / 2;
+            //Formula de p() de LA distribucion normal
             double aux3 = Math.pow(2,(marcaClase - this.media)/this.desviacion);
             double aux2 = this.desviacion * Math.sqrt(2 * Math.PI);
             double fmc = (Math.pow(Math.E, (-1/2* aux3 ))) / aux2;
+            //calculo de la probabilidad
             double px = fmc * (aux[1] - aux[0]);
             double esperada = px * this.cantidadNumeros;
             this.esperadas.add(esperada); 
@@ -81,13 +85,22 @@ public class ChiNormal extends TestChiCuadrado{
     
     @Override
     public ArrayList<Double> diferenciaYalCuadrado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Double> aux = new ArrayList<>();
+        for ( int i = 0 ; i < this.intervalosAgrupados.size() ; i++)
+        {
+            int frec = (int) this.frecuenciaAgrupada.get(i);
+            Double esp = this.esperadasAgrupadas.get(i);
+            double aux1 = Math.pow(frec - esp, 2) / esp;
+            aux.add(aux1);
+        }
+        return aux; 
     }
 
   
     @Override
     public boolean ejecutarTest() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.calcularEsperadas();
+        return this.esAprobado();
     }
     
     
