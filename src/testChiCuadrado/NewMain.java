@@ -20,7 +20,7 @@ public class NewMain {
     public static void main(String[] args) {
         // TODO code application logic here
         //Normal n = new Normal(12,2);
-        /*ArrayList prueba = new ArrayList<>();
+        ArrayList prueba = new ArrayList<>();
         prueba.add(1.56);
         prueba.add(2.21);
         prueba.add(3.15);
@@ -54,13 +54,7 @@ public class NewMain {
         ChiNormal cn = new ChiNormal(9,prueba, 4.8410, 1.5574);
         System.out.println(cn.ejecutarTest());
         System.out.println(cn.listarIntervalos());
-        System.out.println(cn.listarFrecuenciasObservadas());*/
-        ArrayList prueba = new ArrayList();
-        prueba.add(5);
-        prueba.add(100);
-        prueba.add(1000);
-        ChiNormal cn = new ChiNormal(3,prueba, 368.33, 1.5574);
-        System.out.println(cn.ejecutarTest());
+        System.out.println(cn.listarFrecuenciasObservadas());
     }
     
 }
