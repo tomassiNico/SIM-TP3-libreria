@@ -30,9 +30,9 @@ public abstract class TestChiCuadrado {
         this.numIntervalos = intervalos;
         this.numerosAleatorios = numeros;
         this.contadorFrecuencia = new int[numIntervalos];
-        this.generarIntervalosNoAgrupados();
-        this.intervalosGenerados = new ArrayList();
         this.calcularMinMax();
+        this.generarIntervalosNoAgrupados();
+        this.contarFrecuencia();
     }
     
     public ArrayList getIntervalosGenerados() {
@@ -52,14 +52,15 @@ public abstract class TestChiCuadrado {
     }
     
     private void calcularMinMax() {
-        this.min = 0;
+        this.min = this.getNumerosAleatorios().get(0).intValue();
         this.max = 0;
-        
+        int ayuda = 0;
+        //for(Object aux: this.getNumerosAleatorios()) 
         for(double aux: this.getNumerosAleatorios()) { 
             //obtenemos el menor y mayor número dentro de los generados
             //para poder saber el rango
             if (aux < this.min) {
-                this.min = (int) aux;
+                this.min = (int)aux;
             }
             if(aux > this.max) {
                 this.max = ((int) aux) + 1;
@@ -160,7 +161,7 @@ public abstract class TestChiCuadrado {
         amplitudIntervalo = Math.round(amplitudIntervalo*10000.0) / 10000.0;
         double aux = this.min;
         ArrayList intervalosGenerados = new ArrayList();
-        while (aux > this.max)
+        while (aux < this.max)
         {
             double intervalo[] = new double[2];
             intervalo[0] = aux;
@@ -170,7 +171,6 @@ public abstract class TestChiCuadrado {
             aux += amplitudIntervalo;
         }
         this.intervalosGenerados = intervalosGenerados;
-
     }
 
     public int[] getContadorFrecuencia() {
@@ -213,7 +213,27 @@ public abstract class TestChiCuadrado {
         return sumatoria;
     }
     
-
-    
     public abstract boolean ejecutarTest();
+    
+    public String listarIntervalos()
+    {
+        String pepe = "";
+        for (Object i: this.intervalosGenerados)
+        {
+            double []aux = (double[]) i;
+            pepe += String.valueOf(aux[0]) + " - " + String.valueOf(aux[1]) + "\n";
+        }
+        return pepe;
+    }
+    
+    public String listarFrecuenciasObservadas()
+    {
+        String pepe = "";
+        for (Object i: this.contadorFrecuencia)
+        {
+            pepe += String.valueOf(i) + " - " + "\n";
+        }
+        return pepe;
+    }
+ 
 }

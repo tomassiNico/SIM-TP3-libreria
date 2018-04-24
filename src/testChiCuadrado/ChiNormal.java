@@ -50,7 +50,7 @@ public class ChiNormal extends TestChiCuadrado{
                  this.frecuenciaAgrupada.add(acuFrecuencia);
                  double []limites = new double[2];
                  limites[0] = limInf;
-                 double limitesViejos[] = (double[]) this.intervalosAgrupados.get(i);
+                 double limitesViejos[] = (double[]) intViejos.get(i);
                  limites[1] = limitesViejos[1];
                  this.intervalosAgrupados.add(limites);
                  limInf = limites[1];
