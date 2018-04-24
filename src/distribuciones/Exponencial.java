@@ -17,6 +17,7 @@ public class Exponencial implements Distribucion{
     
     private double media;
     private double lambda;
+    private ArrayList numeros;
     
     public Exponencial(){
         
@@ -25,6 +26,7 @@ public class Exponencial implements Distribucion{
     public Exponencial(double media) {
         this.media = media;
         this.lambda = 1/this.media;
+        this.numeros = new ArrayList();
     }
 
     public double getMedia() {
@@ -43,8 +45,11 @@ public class Exponencial implements Distribucion{
         
         for (int i = 0; i < cantidad; i++) {
             numeroGenerado = (-1/this.lambda) * Math.log((1-r.nextFloat()));
+            numeroGenerado = Math.round(numeroGenerado*10000.0) / 10000.0;
             numeros.add(numeroGenerado);
         }
+        
+        this.numeros = numeros;
         
         return numeros;
     }
@@ -55,6 +60,12 @@ public class Exponencial implements Distribucion{
         
         return this.generarNumeros(cantidad);
     }
+
+    @Override
+    public ArrayList getNumeros() {
+        return this.numeros;
+    }
+    
     
     
     

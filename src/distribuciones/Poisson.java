@@ -14,7 +14,8 @@ import java.util.Random;
  */
 public class Poisson implements Distribucion{
     
-    public double media;
+    private double media;
+    private ArrayList numeros;
     
     public Poisson() {
         
@@ -22,6 +23,7 @@ public class Poisson implements Distribucion{
     
     public Poisson(double me) {
         this.media = me;
+        this.numeros = new ArrayList();
     }
 
     public double getMedia() {
@@ -37,7 +39,7 @@ public class Poisson implements Distribucion{
         
         for (int i = 0; i < cantidad; i++) {
             int p = 1;
-            int x = -1;
+            double x = -1;
             double a = Math.pow(Math.E, -media);
             
             while(p >= a) {
@@ -45,8 +47,10 @@ public class Poisson implements Distribucion{
                 x += 1;               
             }
             
+            x = Math.round(x*10000.0) / 10000.0;
             numeros.add(x);
         }
+        this.numeros = numeros;
         
         return numeros;
     }
@@ -55,6 +59,11 @@ public class Poisson implements Distribucion{
         this.media = media;
         
         return this.generarNumeros(cantidad);
+    }
+    
+    @Override
+    public ArrayList getNumeros() {
+        return this.numeros;
     }
 }
 

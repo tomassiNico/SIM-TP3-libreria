@@ -16,6 +16,7 @@ public class Uniforme implements Distribucion{
     
     private double valorInf; //valor inferior minimo a generar
     private double valorSup; //valor superior máximo a generar
+    private ArrayList numeros;
     
     public Uniforme()
     {
@@ -25,6 +26,7 @@ public class Uniforme implements Distribucion{
     public Uniforme(double inf, double sup) {
         this.valorInf = inf;
         this.valorSup = inf;
+        this.numeros = new ArrayList();
     }
 
     public double getValorInf() {
@@ -44,8 +46,11 @@ public class Uniforme implements Distribucion{
         
         for (int i = 0; i < cantidad; i++) {
             numeroGenerado = this.valorInf + (r.nextFloat()*amplitud);
+            numeroGenerado = Math.round(numeroGenerado*10000.0) / 10000.0;
             numeros.add(numeroGenerado);
         }
+        
+        this.numeros = numeros;
         
         return numeros;
     }
@@ -57,5 +62,10 @@ public class Uniforme implements Distribucion{
         this.valorSup = sup;
         
         return this.generarNumeros(cantidad);
+    }
+    
+    @Override
+    public ArrayList getNumeros() {
+        return this.numeros;
     }
 }
