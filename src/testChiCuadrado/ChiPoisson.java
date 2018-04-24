@@ -14,9 +14,10 @@ import java.util.ArrayList;
 public class ChiPoisson extends TestChiCuadrado {
 
     private double media;
-    private ArrayList<Integer> observadasAgrupadas;
+    private ArrayList<Double> observadasAgrupadas;
     private ArrayList<Double> esperadasAgrupadas;
     private ArrayList<Double> probabilidades;
+    private ArrayList intervalosAgrupados;
     
     public ChiPoisson(int cantidad, ArrayList numeros, double media) {
         super(cantidad, numeros);
@@ -24,6 +25,7 @@ public class ChiPoisson extends TestChiCuadrado {
         this.esperadasAgrupadas = new ArrayList<>();
         this.observadasAgrupadas = new ArrayList<>();
         this.probabilidades = new ArrayList<>();
+        this.intervalosAgrupados = new ArrayList();
     }
     
     private ArrayList frecuenciaEsperada() {
@@ -93,7 +95,7 @@ public class ChiPoisson extends TestChiCuadrado {
                  this.observadasAgrupadas.add(acuFrecuencia);
                  double []limites = new double[2];
                  limites[0] = limInf;
-                 double limitesViejos[] = (double[]) this.intervalosAgrupados.get(i);
+                 double limitesViejos[] = (double[]) intViejos.get(i);
                  limites[1] = limitesViejos[1];
                  this.intervalosAgrupados.add(limites);
                  limInf = limites[1];
@@ -105,12 +107,25 @@ public class ChiPoisson extends TestChiCuadrado {
     
     @Override
     public ArrayList<Double> diferenciaYalCuadrado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList fes = this.esperadasAgrupadas; //lista de frecuencias esperadas
+        ArrayList fos = this.observadasAgrupadas; //lista de frecuencias observadas
+        ArrayList<Double> diferencias = new ArrayList<>();
+        
+        double dif;
+        for (int i = 0; i < fes.size(); i++) {
+            double fe = (double) fes.get(i), fo = (double) fos.get(i);
+            
+            dif = Math.pow((fo-fe), 2) / fe;
+            diferencias.add(dif);
+        }
+        return diferencias;
+        
     }
 
     @Override
     public boolean ejecutarTest() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.generarIntervalosAgrupados();
+        return this.esAprobado();
     }
     
 }
