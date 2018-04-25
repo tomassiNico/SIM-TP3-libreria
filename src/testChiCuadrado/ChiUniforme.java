@@ -43,7 +43,20 @@ public class ChiUniforme extends TestChiCuadrado{
         int intervalos[] = new int[numIntervalos];
         super.setIntervalos(intervalos);
     }
-
+    public void generarIntervalosAgrupados(int numIntervalos)
+    {
+        double limInf = 0;
+        double amplitudIntervalo = 1 / numIntervalos;
+        for(int i = 0 ; i< numIntervalos; i++)
+        {
+            double intervalo[] = new double[2];
+            intervalo[0] = limInf;
+            intervalo[1] = limInf + amplitudIntervalo;
+            this.intervalosAgrupados.add(intervalo);
+            limInf = intervalo[1];
+        }
+    }
+    
     @Override
     public ArrayList<Double> diferenciaYalCuadrado() 
     {
@@ -62,6 +75,7 @@ public class ChiUniforme extends TestChiCuadrado{
     public boolean ejecutarTest() 
     {
         this.calcularEsperado();
+        this.gradosDeLibertad = this.intervalosAgrupados.size() - 1;
         return this.esAprobado();
     }
 

@@ -19,14 +19,37 @@ public abstract class TestChiCuadrado {
     
     private int numIntervalos;
     private ArrayList<Double> numerosAleatorios;//Numeros aleatorios a testear
-    private int gradosDeLibertad;
+    protected int gradosDeLibertad;
     private int[] contadorFrecuencia;//Contador de frecuencias observadas en cada intervalo
     private ArrayList intervalosGenerados; 
     private double min; //valor minimo de los numeros aleatorios
     private double max; //valor maximo de los numeros aleatorios
+    protected ArrayList<Double> observadasAgrupadas;
+    protected ArrayList<Double> esperadasAgrupadas;
+    protected ArrayList intervalosAgrupados;
+    protected ArrayList<Double> esperadas;
+
+    public ArrayList<Double> getEsperadas() {
+        return esperadas;
+    }
+    
+    public ArrayList<Double> getObservadasAgrupadas() {
+        return observadasAgrupadas;
+    }
+
+    public ArrayList<Double> getEsperadasAgrupadas() {
+        return esperadasAgrupadas;
+    }
+
+    public ArrayList getIntervalosAgrupados() {
+        return intervalosAgrupados;
+    }
     
     public TestChiCuadrado(int intervalos, ArrayList numeros)
     {
+        this.esperadasAgrupadas = new ArrayList();
+        this.observadasAgrupadas = new ArrayList();
+        this.intervalosAgrupados = new ArrayList();
         this.numIntervalos = intervalos;
         this.numerosAleatorios = numeros;
         this.contadorFrecuencia = new int[numIntervalos];
@@ -69,7 +92,7 @@ public abstract class TestChiCuadrado {
     }
     
     public boolean esAprobado()
-    {
+    { 
         double ChiTabulado = this.getNumeroTabla(this.gradosDeLibertad);
         if (ChiTabulado >= this.generarSumatoriaChi())
         {
@@ -130,7 +153,7 @@ public abstract class TestChiCuadrado {
         return aux;
     }
      
-    private void contarFrecuencia()
+    protected void contarFrecuencia()
     {
         for (double aux : numerosAleatorios)
         {
@@ -158,19 +181,29 @@ public abstract class TestChiCuadrado {
     {
         double rango = this.max - this.min;
         double amplitudIntervalo = rango / (float) this.getNumIntervalos();
-        amplitudIntervalo = Math.round(amplitudIntervalo*10000.0) / 10000.0;
+        amplitudIntervalo = Math.round(amplitudIntervalo*100.0) / 100.0;
         double aux = this.min;
         ArrayList intervalosGenerados = new ArrayList();
+        System.out.println("Maximo: " + this.max);
         while (aux < this.max)
         {
             double intervalo[] = new double[2];
-            intervalo[0] = aux;
-            intervalo[1] = aux + amplitudIntervalo;
-            if (intervalo[1] > this.max) {intervalo[1] = this.max;}
+            intervalo[0] = Math.round(aux*100.0) / 100.0;
+            intervalo[1] = Math.round((aux + amplitudIntervalo)*100.0) / 100.0;
+            System.out.println("Izq: " + intervalo[0]);
+            System.out.println("Der: " + intervalo[1]);
+            if (intervalo[1] >= this.max) 
+            {
+                intervalo[1] = this.max;
+                intervalosGenerados.add(intervalo);
+                break;
+            }
             intervalosGenerados.add(intervalo);
             aux += amplitudIntervalo;
+            aux = Math.round(aux*100.0) / 100.0;
         }
         this.intervalosGenerados = intervalosGenerados;
+      
     }
 
     public int[] getContadorFrecuencia() {
@@ -218,7 +251,7 @@ public abstract class TestChiCuadrado {
     public String listarIntervalos()
     {
         String pepe = "";
-        for (Object i: this.intervalosGenerados)
+        for (Object i: this.intervalosAgrupados)
         {
             double []aux = (double[]) i;
             pepe += String.valueOf(aux[0]) + " - " + String.valueOf(aux[1]) + "\n";
@@ -231,7 +264,7 @@ public abstract class TestChiCuadrado {
         String pepe = "";
         for (Object i: this.contadorFrecuencia)
         {
-            pepe += String.valueOf(i) + " - " + "\n";
+            pepe += String.valueOf(i) + "\n";
         }
         return pepe;
     }

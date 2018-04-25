@@ -14,16 +14,11 @@ import java.util.ArrayList;
 public class ChiPoisson extends TestChiCuadrado {
 
     private double media;
-    private ArrayList<Double> observadasAgrupadas;
-    private ArrayList<Double> esperadasAgrupadas;
     private ArrayList<Double> probabilidades;
-    private ArrayList intervalosAgrupados;
     
     public ChiPoisson(int cantidad, ArrayList numeros, double media) {
         super(cantidad, numeros);
         this.media = media;
-        this.esperadasAgrupadas = new ArrayList<>();
-        this.observadasAgrupadas = new ArrayList<>();
         this.probabilidades = new ArrayList<>();
         this.intervalosAgrupados = new ArrayList();
     }
@@ -47,22 +42,10 @@ public class ChiPoisson extends TestChiCuadrado {
         return media;
     }
 
-    public ArrayList<Double> getObservadasAgrupadas() {
-        return observadasAgrupadas;
-    }
-
-    public ArrayList<Double> getEsperadasAgrupadas() {
-        return esperadasAgrupadas;
-    }
-
     public ArrayList<Double> getProbabilidades() {
         return probabilidades;
     }
 
-    public ArrayList getIntervalosAgrupados() {
-        return intervalosAgrupados;
-    }
-    
     private ArrayList<Double> probabilidadesAcumuladas() {
         //calcula la probabilidad acumulada para cada intervalo que servira
         // para calcular las frecuencias esperadas
@@ -145,6 +128,7 @@ public class ChiPoisson extends TestChiCuadrado {
     @Override
     public boolean ejecutarTest() {
         this.generarIntervalosAgrupados();
+        this.gradosDeLibertad = this.intervalosAgrupados.size() - 2 ;
         return this.esAprobado();
     }
     

@@ -16,9 +16,6 @@ public class ChiExponencial extends TestChiCuadrado{
     private double media;
     private double lambda;
     private ArrayList<Double> esperadasInagrupadas ;
-    private ArrayList<Double> esperadasAgrupadas;
-    private ArrayList<Integer> observadasAgrupadas;
-    private ArrayList<double[]> intervalosAgrupados;
 
     public double getMedia() {
         return media;
@@ -32,27 +29,11 @@ public class ChiExponencial extends TestChiCuadrado{
         return esperadasInagrupadas;
     }
 
-    public ArrayList<Double> getEsperadasAgrupadas() {
-        return esperadasAgrupadas;
-    }
-
-    public ArrayList<Integer> getObservadasAgrupadas() {
-        return observadasAgrupadas;
-    }
-
-    public ArrayList<double[]> getIntervalosAgrupados() {
-        return intervalosAgrupados;
-    }
-    
-   
     public ChiExponencial(int intervalos, ArrayList numeros, double media) {
         super(intervalos, numeros);
         this.media = media;
         this.lambda = 1 / media;
         this.esperadasInagrupadas = this.frecuenciaEsperada();
-        this.esperadasAgrupadas = new ArrayList<>();
-        this.observadasAgrupadas = new ArrayList<>();
-        this.intervalosAgrupados = new ArrayList<>();
     }
     
     private ArrayList<Double> probabilidadesAcumuladas() {
@@ -109,7 +90,7 @@ public class ChiExponencial extends TestChiCuadrado{
         
         
         int index = 0; //indice desde el cual se debería agrupar
-        int acuObservadas = 0; // acumulador de frecuencias acumuladas
+        double acuObservadas = 0; // acumulador de frecuencias acumuladas
         
         for(double aux: this.esperadasInagrupadas) {
             //encontramos el indice desde la cual ya las esperadas son menores a 5
@@ -191,8 +172,8 @@ public class ChiExponencial extends TestChiCuadrado{
     public boolean ejecutarTest() {
         
         this.esperadasAgrupadas();
+        this.gradosDeLibertad = this.intervalosAgrupados.size() - 2 ;
         return this.esAprobado();
-        
     }
     
 }
