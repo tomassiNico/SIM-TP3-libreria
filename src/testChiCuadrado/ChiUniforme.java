@@ -42,39 +42,41 @@ public class ChiUniforme extends TestChiCuadrado{
         super.setNumIntervalos(numIntervalos);
         int intervalos[] = new int[numIntervalos];
         super.setIntervalos(intervalos);
+        this.generarIntervalosNoAgrupados();
+        this.contarFrecuencia();
     }
-    public void generarIntervalosAgrupados(int numIntervalos)
+    public void generarIntervalosAgrupados()
     {
-        double limInf = 0;
-        double amplitudIntervalo = 1 / numIntervalos;
-        for(int i = 0 ; i< numIntervalos; i++)
-        {
-            double intervalo[] = new double[2];
-            intervalo[0] = limInf;
-            intervalo[1] = limInf + amplitudIntervalo;
-            this.intervalosAgrupados.add(intervalo);
-            limInf = intervalo[1];
+        this.intervalosAgrupados = this.getIntervalosGenerados();
+        ArrayList<Double> observadas = new ArrayList<>();
+        for (int i = 0; i < this.getContadorFrecuencia().length; i++) {
+            observadas.add((double)this.getContadorFrecuencia()[i]);
+            this.esperadasAgrupadas.add(this.esperado);
         }
+        this.observadasAgrupadas = observadas;
+        this.intervalosAgrupados = this.getIntervalosGenerados();
     }
     
     @Override
     public ArrayList<Double> diferenciaYalCuadrado() 
     {
-        ArrayList<Double> aux = new ArrayList<>();
-        int intervalos[] = super.getIntervalos();
-        for ( int i = 0 ; i < intervalos.length ; i++)
+        double fo, fe = this.esperado, diferencia;
+        
+        ArrayList<Double> diferencias = new ArrayList<>();
+        for ( int i = 0 ; i < this.getIntervalosAgrupados().size() ; i++)
         {
-            double aux1 = Math.pow(intervalos[i] - this.esperado, 2);
-            aux1 /= this.esperado;
-            aux.add(aux1);
+            fo = this.getObservadasAgrupadas().get(i);
+            diferencia = Math.pow((fo-fe), 2) / fe;
+            diferencias.add(diferencia);
         }
-        return aux; 
+        return diferencias; 
     }
 
     @Override
     public boolean ejecutarTest() 
     {
         this.calcularEsperado();
+        this.generarIntervalosAgrupados();             
         this.gradosDeLibertad = this.intervalosAgrupados.size() - 1;
         return this.esAprobado();
     }

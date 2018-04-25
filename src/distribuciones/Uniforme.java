@@ -25,7 +25,7 @@ public class Uniforme implements Distribucion{
     
     public Uniforme(double inf, double sup) {
         this.valorInf = inf;
-        this.valorSup = inf;
+        this.valorSup = sup;
         this.numeros = new ArrayList();
     }
 

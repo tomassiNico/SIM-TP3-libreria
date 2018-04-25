@@ -41,22 +41,18 @@ public class ChiExponencial extends TestChiCuadrado{
         // para calcular las frecuencias esperadas
         
         ArrayList probabilidades = new ArrayList();
-        double amplitudIntervalo = 1 / (double) super.getNumIntervalos();
+        double amplitudIntervalo = 1 / (double) super.getNumIntervalos(); 
         double acumulada;
         
-        for (float i = 0; i < 1; i+=amplitudIntervalo)
+        for (Object i: this.getIntervalosGenerados())
         {
-                double intM = Math.round((i+amplitudIntervalo) * 10000.0) / 10000.0;
-                double intm = Math.round(i * 10000.0) / 10000.0;
-                if (intM > 1) 
-                {
-                    intM = 1;
-                }
-                
+                double intervalo[] = (double[]) i;
+                double intM = intervalo[1];
+                double intm = intervalo[0];
                 //=(1-EXP(-Lambda*intM))-(1-EXP(-Lambda*intm))
-                
-                acumulada = (1 - Math.pow(Math.E, intM)) - (1 - Math.pow(Math.E, intm));
-                
+
+                acumulada = (1 - Math.pow(Math.E, (-this.lambda*intM))) - (1 - Math.pow(Math.E, (-this.lambda*intm)));
+
                 probabilidades.add(acumulada);
         }
         return probabilidades;
@@ -91,9 +87,13 @@ public class ChiExponencial extends TestChiCuadrado{
         
         int index = 0; //indice desde el cual se debería agrupar
         double acuObservadas = 0; // acumulador de frecuencias acumuladas
-        
+        System.out.println("Esperadas ina: " + this.esperadasInagrupadas.size());
+        for (double a: this.esperadasInagrupadas) {
+            System.out.println("cooas: " + a);
+        }
         for(double aux: this.esperadasInagrupadas) {
             //encontramos el indice desde la cual ya las esperadas son menores a 5
+            System.out.println("aux: "  + aux);
             if (aux < 5) {
                 break;
             }
@@ -141,7 +141,8 @@ public class ChiExponencial extends TestChiCuadrado{
         if(nuevaEsperada < 5 && nuevaEsperada != 0) {
              // en caso de que queden valores al final de la lista de esperadas
              //que no sumen 5, se suman al ultimo valor que sí los sunma
-            int aux = this.esperadasAgrupadas.size() - 1; //indice del ultima esperada >= 5
+             System.out.println(this.esperadasAgrupadas.size());
+            int aux = this.esperadasAgrupadas.size() - 1; //indice del ultima esperada <= 5
             nuevaEsperada += this.esperadasAgrupadas.get(aux); // se las suma
             acuObservadas += this.observadasAgrupadas.get(aux);
             intervalosNuevos.add(nuevosLimites);

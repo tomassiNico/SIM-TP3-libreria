@@ -177,7 +177,7 @@ public abstract class TestChiCuadrado {
 
     }
     
-    private void generarIntervalosNoAgrupados()
+    protected void generarIntervalosNoAgrupados()
     {
         double rango = this.max - this.min;
         double amplitudIntervalo = rango / (float) this.getNumIntervalos();

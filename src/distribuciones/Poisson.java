@@ -38,15 +38,14 @@ public class Poisson implements Distribucion{
         
         
         for (int i = 0; i < cantidad; i++) {
-            int p = 1;
+            double p = 1;
             double x = -1;
             double a = Math.pow(Math.E, -media);
             
             while(p >= a) {
                 p *= r.nextFloat();
-                x += 1;               
+                x += 1;
             }
-            
             x = Math.round(x*10000.0) / 10000.0;
             numeros.add(x);
         }

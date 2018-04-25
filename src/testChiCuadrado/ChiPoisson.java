@@ -27,11 +27,11 @@ public class ChiPoisson extends TestChiCuadrado {
         //calcula las frecuencias esperadas para cada intervalo
         
         this.probabilidades = this.probabilidadesAcumuladas();
-        ArrayList<Integer> esperadas = new ArrayList<>();
-        int fe ;
+        ArrayList<Double> esperadas = new ArrayList<>();
+        double fe ;
         
         for (double aux: probabilidades) {
-            fe = (int) aux * this.getNumerosAleatorios().size();
+            fe = aux * this.getNumerosAleatorios().size();
             
             esperadas.add(fe);
         }
@@ -88,12 +88,14 @@ public class ChiPoisson extends TestChiCuadrado {
         double limInf = this.getMin();//Desde - Nuevo intervalo
         ArrayList intViejos = this.getIntervalosGenerados();
         int []frecuenciaVieja = this.getContadorFrecuencia();
+        
+        
         for (int i = 0; i < this.frecuenciaEsperada().size(); i++)
         {
-            acuEsperada += (int) this.frecuenciaEsperada().get(i);
+            acuEsperada += (double) this.frecuenciaEsperada().get(i);
             acuFrecuencia += frecuenciaVieja[i];
-            if (acuEsperada > 5) 
-            {
+            if (acuEsperada >= 5) 
+            {   
                  this.esperadasAgrupadas.add(acuEsperada);
                  this.observadasAgrupadas.add(acuFrecuencia);
                  double []limites = new double[2];
