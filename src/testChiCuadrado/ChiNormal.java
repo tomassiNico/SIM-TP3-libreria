@@ -48,8 +48,6 @@ public class ChiNormal extends TestChiCuadrado{
         int []frecuenciaVieja = this.getContadorFrecuencia();
         for (int i = 0; i < this.esperadas.size(); i++)
         {
-            System.out.println("Observada: " + frecuenciaVieja.length);
-            System.out.println("Esperada: " + this.esperadas.size());
             acuEsperada += this.esperadas.get(i);
             acuFrecuencia += frecuenciaVieja[i];
             if (acuEsperada > 5) 
@@ -79,7 +77,6 @@ public class ChiNormal extends TestChiCuadrado{
         for (Object i: intervalos)
         //for (int i = 0; i < this.getNumIntervalos() ; i++)
         {
-            System.out.println("Intervalos: " + intervalos.size());
             //Variable para guardar el intervalo necesario
             aux =  (double[]) i;
             //Calculo la marca de clase

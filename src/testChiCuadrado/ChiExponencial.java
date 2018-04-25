@@ -34,6 +34,7 @@ public class ChiExponencial extends TestChiCuadrado{
         this.media = media;
         this.lambda = 1 / media;
         this.esperadasInagrupadas = this.frecuenciaEsperada();
+        this.esperadas = this.frecuenciaEsperada();
     }
     
     private ArrayList<Double> probabilidadesAcumuladas() {
@@ -87,13 +88,13 @@ public class ChiExponencial extends TestChiCuadrado{
         
         int index = 0; //indice desde el cual se debería agrupar
         double acuObservadas = 0; // acumulador de frecuencias acumuladas
-        System.out.println("Esperadas ina: " + this.esperadasInagrupadas.size());
-        for (double a: this.esperadasInagrupadas) {
+        //System.out.println("Esperadas ina: " + this.esperadasInagrupadas.size());
+        /*for (double a: this.esperadasInagrupadas) {
             System.out.println("cooas: " + a);
-        }
+        }*/
         for(double aux: this.esperadasInagrupadas) {
             //encontramos el indice desde la cual ya las esperadas son menores a 5
-            System.out.println("aux: "  + aux);
+            //System.out.println("aux: "  + aux);
             if (aux < 5) {
                 break;
             }
@@ -141,7 +142,7 @@ public class ChiExponencial extends TestChiCuadrado{
         if(nuevaEsperada < 5 && nuevaEsperada != 0) {
              // en caso de que queden valores al final de la lista de esperadas
              //que no sumen 5, se suman al ultimo valor que sí los sunma
-             System.out.println(this.esperadasAgrupadas.size());
+            // System.out.println(this.esperadasAgrupadas.size());
             int aux = this.esperadasAgrupadas.size() - 1; //indice del ultima esperada <= 5
             nuevaEsperada += this.esperadasAgrupadas.get(aux); // se las suma
             acuObservadas += this.observadasAgrupadas.get(aux);

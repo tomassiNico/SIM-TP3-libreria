@@ -180,19 +180,16 @@ public abstract class TestChiCuadrado {
     protected void generarIntervalosNoAgrupados()
     {
         double rango = this.max - this.min;
-        double amplitudIntervalo = rango / (float) this.getNumIntervalos();
+        double amplitudIntervalo = rango / (double) this.getNumIntervalos();
         amplitudIntervalo = Math.round(amplitudIntervalo*100.0) / 100.0;
         double aux = this.min;
         ArrayList intervalosGenerados = new ArrayList();
-        System.out.println("Maximo: " + this.max);
-        while (aux < this.max)
+        while (aux <= this.max)
         {
             double intervalo[] = new double[2];
             intervalo[0] = Math.round(aux*100.0) / 100.0;
             intervalo[1] = Math.round((aux + amplitudIntervalo)*100.0) / 100.0;
-            System.out.println("Izq: " + intervalo[0]);
-            System.out.println("Der: " + intervalo[1]);
-            if (intervalo[1] >= this.max) 
+            if (intervalo[1] >= (this.max-0.05)) 
             {
                 intervalo[1] = this.max;
                 intervalosGenerados.add(intervalo);
@@ -251,10 +248,10 @@ public abstract class TestChiCuadrado {
     public String listarIntervalos()
     {
         String pepe = "";
-        for (Object i: this.intervalosAgrupados)
+        for (int i= 0; i<  this.intervalosGenerados.size(); i++)
         {
-            double []aux = (double[]) i;
-            pepe += String.valueOf(aux[0]) + " - " + String.valueOf(aux[1]) + "\n";
+            double []aux = (double[]) this.intervalosGenerados.get(i);
+            pepe += "Intervalo " + i + ": " + String.valueOf(aux[0]) + " - " + String.valueOf(aux[1]) + "\n";
         }
         return pepe;
     }
@@ -268,5 +265,16 @@ public abstract class TestChiCuadrado {
         }
         return pepe;
     }
- 
+    
+    public String listarFrecuenciasEsperadas()
+    {
+        String pepe = "";
+        for (int i= 0; i<  this.intervalosGenerados.size(); i++)
+        {
+            double []aux = (double[]) this.intervalosGenerados.get(i);
+            pepe += "Intervalo " + i + ": " + String.valueOf(aux[0]) + " - " + String.valueOf(aux[1]) ;
+            pepe += " Esperada: "  + this.esperadas.get(i) + "\n";
+        }
+        return pepe;
+    }
 }

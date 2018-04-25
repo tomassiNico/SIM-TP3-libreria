@@ -21,6 +21,7 @@ public class ChiPoisson extends TestChiCuadrado {
         this.media = media;
         this.probabilidades = new ArrayList<>();
         this.intervalosAgrupados = new ArrayList();
+        this.esperadas = this.frecuenciaEsperada();
     }
     
     private ArrayList frecuenciaEsperada() {

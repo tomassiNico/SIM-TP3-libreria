@@ -21,12 +21,25 @@ public class ChiUniforme extends TestChiCuadrado{
     public ChiUniforme(int intervalos, ArrayList numeros) {
         super(intervalos, numeros);
         super.setGradosDeLibertad(intervalos - 1);
+        this.calcularEsperado();
+        this.generarIntervalosAgrupados(); 
+        this.esperadas = this.generarEsperados();
     }
 
     public double getEsperado() {
         return esperado;
     }
     
+    public ArrayList generarEsperados()
+    {
+        ArrayList aux = new ArrayList();
+        ArrayList intervalos = this.getIntervalosGenerados();
+        for (int i = 0 ; i < intervalos.size() ; i++)
+        {
+            aux.add(this.esperado);
+        }
+        return aux;
+    }
     
     public void calcularEsperado()
     {
@@ -42,7 +55,6 @@ public class ChiUniforme extends TestChiCuadrado{
         super.setNumIntervalos(numIntervalos);
         int intervalos[] = new int[numIntervalos];
         super.setIntervalos(intervalos);
-        this.generarIntervalosNoAgrupados();
         this.contarFrecuencia();
     }
     public void generarIntervalosAgrupados()
@@ -75,11 +87,11 @@ public class ChiUniforme extends TestChiCuadrado{
     @Override
     public boolean ejecutarTest() 
     {
-        this.calcularEsperado();
-        this.generarIntervalosAgrupados();             
+                    
         this.gradosDeLibertad = this.intervalosAgrupados.size() - 1;
         return this.esAprobado();
     }
+
 
     
     
