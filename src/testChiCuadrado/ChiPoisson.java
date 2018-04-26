@@ -79,12 +79,11 @@ public class ChiPoisson extends TestChiCuadrado {
         for(double i = n; i >= 1; i--)
 	{
             factorial *= i;
-            System.out.println(i);
 	}
         return factorial;
     }
     
-    public void generarIntervalosAgrupados()
+    /*public void generarIntervalosAgrupados()
     {
         double acuEsperada = 0;
         double acuFrecuencia = 0;
@@ -111,8 +110,52 @@ public class ChiPoisson extends TestChiCuadrado {
                  acuFrecuencia = 0;
             }
         }
-    }
+    }*/
     
+    public void generarIntervalosAgrupados()
+    {
+        double acuEsperada = 0;
+        double acuFrecuencia = 0;
+        double limInf = this.getMin();//Desde - Nuevo intervalo
+        ArrayList intViejos = this.getIntervalosGenerados();
+        int []frecuenciaVieja = this.getContadorFrecuencia();
+        
+        double []limites = new double[2];
+        double limitesViejos[];
+        
+        for (int i = 0; i < this.frecuenciaEsperada().size(); i++)
+        {
+            acuEsperada += (double) this.frecuenciaEsperada().get(i);
+            acuFrecuencia += frecuenciaVieja[i];
+            if (acuEsperada >= 5) 
+            {   
+                 this.esperadasAgrupadas.add(acuEsperada);
+                 this.observadasAgrupadas.add(acuFrecuencia);
+                 limites[0] = limInf;
+                 limitesViejos = (double[]) intViejos.get(i);
+                 limites[1] = limitesViejos[1];
+                 this.intervalosAgrupados.add(limites);
+                 limInf = limites[1];
+                 acuEsperada = 0;
+                 acuFrecuencia = 0;
+            }
+            if (i == this.frecuenciaEsperada().size()-1) {
+                limitesViejos = (double[]) intViejos.get(i);
+                limites[1] = limitesViejos[1];
+                this.intervalosAgrupados.add(limites);
+            }
+        }
+        
+        if(acuEsperada <= 5) {
+            int ultimo = this.esperadasAgrupadas.size() -1;
+            acuEsperada += this.esperadasAgrupadas.get(ultimo);
+            this.esperadasAgrupadas.set(ultimo, acuEsperada);
+            acuFrecuencia += this.observadasAgrupadas.get(ultimo);
+            this.observadasAgrupadas.set(ultimo, acuFrecuencia);
+            
+        }
+    }
+
     @Override
     public ArrayList<Double> diferenciaYalCuadrado() {
         ArrayList fes = this.esperadasAgrupadas; //lista de frecuencias esperadas

@@ -88,13 +88,8 @@ public class ChiExponencial extends TestChiCuadrado{
         
         int index = 0; //indice desde el cual se debería agrupar
         double acuObservadas = 0; // acumulador de frecuencias acumuladas
-        //System.out.println("Esperadas ina: " + this.esperadasInagrupadas.size());
-        /*for (double a: this.esperadasInagrupadas) {
-            System.out.println("cooas: " + a);
-        }*/
         for(double aux: this.esperadasInagrupadas) {
             //encontramos el indice desde la cual ya las esperadas son menores a 5
-            //System.out.println("aux: "  + aux);
             if (aux < 5) {
                 break;
             }
