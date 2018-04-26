@@ -140,9 +140,12 @@ public class ChiPoisson extends TestChiCuadrado {
                  acuFrecuencia = 0;
             }
             if (i == this.frecuenciaEsperada().size()-1) {
+                int tamaño = this.intervalosAgrupados.size();
+                double[] ultimoIntervalo = (double[]) this.intervalosAgrupados.get(tamaño - 1);
                 limitesViejos = (double[]) intViejos.get(i);
                 limites[1] = limitesViejos[1];
-                this.intervalosAgrupados.add(limites);
+                limites[0] = ultimoIntervalo[0];
+                this.intervalosAgrupados.set(tamaño - 1,limites);
             }
         }
         
@@ -152,7 +155,6 @@ public class ChiPoisson extends TestChiCuadrado {
             this.esperadasAgrupadas.set(ultimo, acuEsperada);
             acuFrecuencia += this.observadasAgrupadas.get(ultimo);
             this.observadasAgrupadas.set(ultimo, acuFrecuencia);
-            
         }
     }
 
