@@ -43,9 +43,11 @@ public class NewMain {
         //********************************************************************
         
         Poisson po = new Poisson(15);
-        ChiPoisson chipo = new ChiPoisson(9,po.generarNumeros(150),15);
+        ChiPoisson chipo = new ChiPoisson(9,po.generarNumeros(50),15);
         System.out.println(chipo.listarFrecuenciasEsperadas());
         System.out.println(chipo.listarFrecuenciasObservadas());
+       
+       
         
     }
     

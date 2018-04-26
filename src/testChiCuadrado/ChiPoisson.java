@@ -73,11 +73,13 @@ public class ChiPoisson extends TestChiCuadrado {
         return (Math.pow(this.media, x) * Math.pow(Math.E, (-this.media)) / this.factorial(x));
     }
     
-    private int factorial(double n) {
-        int factorial = (int) n;
-        for(int i =(factorial - 1); i > 1; i--)
+    private double factorial(double n) {
+        double factorial = 1;
+        
+        for(double i = n; i >= 1; i--)
 	{
-            factorial = factorial * i;
+            factorial *= i;
+            System.out.println(i);
 	}
         return factorial;
     }
