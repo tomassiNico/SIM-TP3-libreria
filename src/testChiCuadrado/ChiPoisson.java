@@ -120,7 +120,6 @@ public class ChiPoisson extends TestChiCuadrado {
         ArrayList intViejos = this.getIntervalosGenerados();
         int []frecuenciaVieja = this.getContadorFrecuencia();
         
-        double []limites = new double[2];
         double limitesViejos[];
         
         for (int i = 0; i < this.frecuenciaEsperada().size(); i++)
@@ -129,17 +128,19 @@ public class ChiPoisson extends TestChiCuadrado {
             acuFrecuencia += frecuenciaVieja[i];
             if (acuEsperada >= 5) 
             {   
+                 double []limites = new double[2];
                  this.esperadasAgrupadas.add(acuEsperada);
                  this.observadasAgrupadas.add(acuFrecuencia);
                  limites[0] = limInf;
                  limitesViejos = (double[]) intViejos.get(i);
-                 limites[1] = limitesViejos[1];
+                 limites[1] = limitesViejos[1];               
                  this.intervalosAgrupados.add(limites);
                  limInf = limites[1];
                  acuEsperada = 0;
                  acuFrecuencia = 0;
             }
             if (i == this.frecuenciaEsperada().size()-1) {
+                double []limites = new double[2];
                 int tamaño = this.intervalosAgrupados.size();
                 double[] ultimoIntervalo = (double[]) this.intervalosAgrupados.get(tamaño - 1);
                 limitesViejos = (double[]) intViejos.get(i);
